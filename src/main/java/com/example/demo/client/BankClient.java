@@ -26,11 +26,12 @@ public class  BankClient {
 
 
     @GetMapping("/{bankId}")
-    public Bank getBankById(@PathVariable("bankId") Long bankId){
+    public  String getBankById(@PathVariable("bankId") Long bankId){
         Bank bank = restTemplate.getForObject (BANK_PATH_V1 +"/" + bankId.toString(),Bank.class ) ;
         System.out.println("--------------------"+" "+bank.getBankName());
         System.out.println("--------------------"+" "+bank.getBankBIC());
-        return bank ;
+        System.out.println(bank);
+        return bank.getBankName() ;
     }
 
     @GetMapping("/banks")
