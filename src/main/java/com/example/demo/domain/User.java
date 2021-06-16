@@ -2,12 +2,11 @@ package com.example.demo.domain;
 
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Type;
 import org.hibernate.annotations.UpdateTimestamp;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.UUID;
 
@@ -20,10 +19,10 @@ import java.util.UUID;
 public class User {
 
     @Id
-    @GeneratedValue(generator = "UUID")
-    //TODO: nullable false
-    @Column(length = 36 , columnDefinition = "varchar" , updatable = false )
-    private UUID id ;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+
 
     private String username ;
 
@@ -36,7 +35,6 @@ public class User {
     private String registeredBy ;
 
     @CreationTimestamp
-    @Column
     private Timestamp createdDate ;
 
     @UpdateTimestamp
