@@ -2,6 +2,7 @@ package com.example.demo.client;
 
 import com.example.demo.domain.Bank;
 import org.springframework.boot.web.client.RestTemplateBuilder;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
@@ -42,8 +43,9 @@ public class  BankClient {
 
     }
     @PutMapping("/{bankId}")
-    public void updateBank(@PathVariable Long bankId, @RequestBody Bank bank){
-        restTemplate.put(apihost + BANK_PATH_V1  + bankId, Bank.class);
+    public Bank updateBank(@PathVariable Long bankId, @RequestBody Bank bank){
+        Bank updatedBank = restTemplate.patchForObject( BANK_PATH_V1  + "/"+bankId, bank,Bank.class);
+        return updatedBank ;
     }
 
     @DeleteMapping("/{bankId}")

@@ -24,29 +24,37 @@ public class UserController {
 
     private final BankClient bankClient ;
 
+
+    //GET ALL USERS
+
     @GetMapping("/users")
     public List<User> getAllUsers() {
         return userService.getAllUsers() ;
     }
 
+    // GET USER BY ID :
     @GetMapping("/{userId}")
     public ResponseEntity<User> getUserById(@PathVariable("userId") Long userId) {
 
         return new ResponseEntity<>(userService.getById(userId), HttpStatus.OK) ;
     }
 
+    // ADD NEW USER
 
     @PostMapping
-    public ResponseEntity saveNewBeer(@RequestBody @Validated User userDto) {
-
+    public ResponseEntity saveNewUser(@RequestBody @Validated User userDto) {
 
         System.out.println(bankClient.getBankById(1L));
         User user = userDto ;
-        String ban_name = bankClient.getBankById(1L);
+        String ban_name = bankClient.getBankById(2L);
+        System.out.println(bankClient.getBankList());
 //        System.out.println(id);
         user.setBank_id(ban_name);
         return new ResponseEntity<>(userService.saveNewUSer(user), HttpStatus.CREATED) ;
     }
+
+    // UPDATE NEW USER
+
     @PutMapping("/{userId}")
     public ResponseEntity updateUserById(@PathVariable("userId") Long userId, @RequestBody @Validated User userDto){
         return new ResponseEntity<>(userService.updateUser(userId, userDto), HttpStatus.NO_CONTENT);
